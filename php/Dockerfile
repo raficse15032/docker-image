@@ -17,6 +17,15 @@ RUN apt-get update && \
 
 COPY --from=composer:2.8.10 /usr/bin/composer /usr/bin/composer
 
+# Update PATH for Composer global bin
+ENV PATH="/root/.config/composer/vendor/bin:${PATH}"
+
+# Install Laravel globally
+RUN composer global require laravel/installer
+
+# Test it
+RUN which laravel && laravel --version
+
 # Expose port 80 for nginx
 EXPOSE 80
 
