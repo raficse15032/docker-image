@@ -4,16 +4,11 @@ FROM ubuntu:24.04
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y software-properties-common curl zip unzip git && \
+    apt-get install -y --no-install-recommends software-properties-common curl zip unzip git && \
     add-apt-repository ppa:ondrej/php && \
     apt-get update && \
-    apt-get install -y php8.4 php8.4-cli php8.4-fpm php8.4-common php8.4-mbstring php8.4-xml php8.4-zip php8.4-gd php8.4-curl php8.4-mysql php8.4-pgsql php8.4-redis php8.4-tokenizer php8.4-bcmath php8.4-ctype php8.4-fileinfo php8.4-pdo php8.4-imagick && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install additional libraries for PDF and Excel processing and PostgreSQL client
-RUN apt-get update && \
-    apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev libzip-dev libonig-dev libxml2-dev libpq-dev postgresql-client nginx && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends php8.4 php8.4-cli php8.4-fpm php8.4-common php8.4-mbstring php8.4-xml php8.4-zip php8.4-gd php8.4-curl php8.4-mysql php8.4-pgsql php8.4-redis php8.4-tokenizer php8.4-bcmath php8.4-ctype php8.4-fileinfo php8.4-pdo php8.4-imagick php8.4-dev php-pear && \
+    apt-get install -y --no-install-recommends libpng-dev libjpeg-dev libfreetype6-dev libzip-dev libonig-dev libxml2-dev libpq-dev postgresql-client nginx
 
 COPY --from=composer:2.8.10 /usr/bin/composer /usr/bin/composer
 
